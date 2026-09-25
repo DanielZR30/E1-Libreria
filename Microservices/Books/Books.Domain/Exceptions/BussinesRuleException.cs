@@ -1,0 +1,9 @@
+﻿namespace Books.Domain.Exceptions
+{
+    public class BussinesRuleException : Exception
+    {
+        public BussinesRuleException(string message) : base(message)
+        {
+        }
+    }
+}
