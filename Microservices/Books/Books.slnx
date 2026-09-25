@@ -1,0 +1,18 @@
+﻿<Solution>
+  <Folder Name="/Core/">
+    <Project Path="Books.Application/Books.Application.csproj" />
+    <Project Path="Books.Domain/Books.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="Books.Persistence/Books.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/Presenters/">
+    <Project Path="Books.Api/Books.Api.csproj" />
+  </Folder>
+  <Folder Name="/scripts/">
+    <File Path="ef.cmd" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Books.Tests/Books.Tests.csproj" />
+  </Folder>
+</Solution>
