@@ -1,6 +1,40 @@
-@Books.Api_HostAddress = http://localhost:5167
+﻿@Books.Api_HostAddress = http://localhost:5000
 
-GET {{Books.Api_HostAddress}}/weatherforecast/
+### ============================================================
+### CASO DE ESTUDIO - SEGUIMIENTO 1: SISTEMA DE BIBLIOTECA (CQRS)
+### ============================================================
+
+### Query 1 – Consultar todos los libros
+### Debe retornar: Id, Título, ISBN, Año de publicación, Autor y Categoría
+GET {{Books.Api_HostAddress}}/api/books
+Accept: application/json
+
+###
+
+### Query 1.1 – Consultar todos los libros con paginación
+GET {{Books.Api_HostAddress}}/api/books?pageNumber=1&pageSize=5
+Accept: application/json
+
+###
+
+### Query 1.2 – Consultar libros por término de búsqueda (título o autor)
+GET {{Books.Api_HostAddress}}/api/books?searchTerm=soledad
+Accept: application/json
+
+###
+
+### Query 2 – Consultar un libro por ID
+### Debe retornar: Información detallada del libro, incluyendo autor y categoría
+# (Reemplazar con un ID obtenido en la Query 1)
+GET {{Books.Api_HostAddress}}/api/books/018f0000-0000-7000-8000-000000000001
+Accept: application/json
+
+###
+
+### Query 3 – Consultar libros por categoría
+### Debe retornar: Libros pertenecientes a una categoría determinada
+# (Reemplazar con el CategoryId obtenido en la Query 1 o Seeders)
+GET {{Books.Api_HostAddress}}/api/books/category/018f0000-0000-7000-8000-000000000002
 Accept: application/json
 
 ###
