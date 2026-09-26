@@ -1,4 +1,4 @@
-﻿using Books.Application.Contracts.Persistence;
+using Books.Application.Contracts.Persistence;
 using Books.Application.Contracts.Repositories;
 using Books.Persistence.Repositories;
 using Books.Persistence.Seeds;
@@ -18,7 +18,31 @@ namespace Books.Persistence
         {
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("MyConnection"));
+                var connectionString = configuration.GetConnectionString("MyConnection");
+                if (string.IsNullOrWhiteSpace(connectionString))
+                {
+                    connectionString = configuration["DB_CONNECTION_STRING"]
+                        ?? Environment.GetEnvironmentVariable("ConnectionStrings__MyConnection")
+                        ?? Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+                }
+
+                if (string.IsNullOrWhiteSpace(connectionString))
+                {
+                    var server = configuration["DB_SERVER"] ?? Environment.GetEnvironmentVariable("DB_SERVER") ?? "localhost,1433";
+                    var database = configuration["DB_NAME"] ?? Environment.GetEnvironmentVariable("DB_NAME") ?? "LibraryDb";
+                    var user = configuration["DB_USER"] ?? Environment.GetEnvironmentVariable("DB_USER") ?? "sa";
+                    var password = configuration["MSSQL_SA_PASSWORD"]
+                        ?? configuration["DB_PASSWORD"]
+                        ?? Environment.GetEnvironmentVariable("MSSQL_SA_PASSWORD")
+                        ?? Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+                    if (!string.IsNullOrWhiteSpace(password))
+                    {
+                        connectionString = $"Server={server};Database={database};User Id={user};Password={password};TrustServerCertificate=True;MultipleActiveResultSets=True";
+                    }
+                }
+
+                options.UseSqlServer(connectionString);
             });
 
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
