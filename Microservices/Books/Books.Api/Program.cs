@@ -1,8 +1,11 @@
-﻿using Books.Application;
+using Books.Api.Configuration;
+using Books.Application;
 using Books.Persistence;
 using Books.Persistence.Seeds;
 using Microsoft.OpenApi;
 using Scalar.AspNetCore;
+
+DotEnvLoader.Load();
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
